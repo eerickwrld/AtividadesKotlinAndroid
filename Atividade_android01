@@ -1,0 +1,66 @@
+package br.unipar.atividadenotion
+
+import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val resultado = findViewById<TextView>(R.id.resultado)
+        val botaoVerificar = findViewById<Button>(R.id.botaoVerificar)
+        val verificarIdade = findViewById<EditText>(R.id.editText)
+
+    botaoVerificar.setOnClickListener{
+        val idadeInfo = verificarIdade.text.toString();
+   if (idadeInfo.isNotEmpty()){
+       val idadeInt = idadeInfo.toInt()
+       if (idadeInt >= 18 ) {
+           resultado.setText("você está na meia idade");
+                        }else{
+           resultado.setText("Você é menor de idade") }
+       if(idadeInt >= 60){
+           resultado.setText("Você é idoso") }
+                }
+            }
+        }
+    }
+
+xml:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite sua idade"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/botaoVerificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verificar Idade"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
+
