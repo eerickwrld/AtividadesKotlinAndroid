@@ -1,0 +1,77 @@
+package br.unipar.calculadoragorjeta
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val valorContaInput = findViewById<EditText>(R.id.editTextValorConta)
+        val percentualGorjetaInput = findViewById<EditText>(R.id.editTextPercentualGorjeta)
+        val resultado = findViewById<TextView>(R.id.textViewResultado)
+        val botaoCalcular = findViewById<Button>(R.id.botaoCalcular)
+
+        botaoCalcular.setOnClickListener {
+            val valorConta = valorContaInput.text.toString()
+            val percentualGorjeta = percentualGorjetaInput.text.toString()
+
+            if (valorConta.isNotEmpty() && percentualGorjeta.isNotEmpty()) {
+                val valorContaDouble = valorConta.toDouble()
+                val percentualGorjetaDouble = percentualGorjeta.toDouble()
+
+                val gorjeta = valorContaDouble * (percentualGorjetaDouble / 100)
+                val total = valorContaDouble + gorjeta
+
+                resultado.text = "Gorjeta: R$ %.2f\nTotal: R$ %.2f".format(gorjeta, total)
+            } else {
+                resultado.text = "Por favor, insira o valor da conta e o percentual de gorjeta."
+            }
+        }
+    }
+}
+XML
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/editTextValorConta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o valor da conta"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/editTextPercentualGorjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o percentual da gorjeta (%)"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoCalcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calcular Gorjeta"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
