@@ -1,0 +1,72 @@
+package br.unipar.conversormoedas
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val valorInserido = findViewById<EditText>(R.id.editTextValor)
+        val taxaConversao = findViewById<EditText>(R.id.editTextTaxa)
+        val resultado = findViewById<TextView>(R.id.textViewResultado)
+        val botaoConverter = findViewById<Button>(R.id.botaoConverter)
+
+        botaoConverter.setOnClickListener {
+            val valor = valorInserido.text.toString()
+            val taxa = taxaConversao.text.toString()
+
+            if (valor.isNotEmpty() && taxa.isNotEmpty()) {
+                val valorConvertido = valor.toDouble() * taxa.toDouble()
+                resultado.text = "Valor convertido: R$ %.2f".format(valorConvertido)
+            } else {
+                resultado.text = "Por favor, insira o valor e a taxa de conversão."
+            }
+        }
+    }
+}
+XML
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/editTextValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o valor a ser convertido"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/editTextTaxa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite a taxa de conversão"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoConverter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Converter"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
