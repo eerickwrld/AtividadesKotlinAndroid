@@ -1,0 +1,91 @@
+package br.unipar.calculadorasimples
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val numero1 = findViewById<EditText>(R.id.editTextNumero1)
+        val numero2 = findViewById<EditText>(R.id.editTextNumero2)
+        val resultado = findViewById<TextView>(R.id.textViewResultado)
+        val botaoSomar = findViewById<Button>(R.id.botaoSomar)
+        val botaoSubtrair = findViewById<Button>(R.id.botaoSubtrair)
+
+        botaoSomar.setOnClickListener {
+            val num1 = numero1.text.toString()
+            val num2 = numero2.text.toString()
+            if (num1.isNotEmpty() && num2.isNotEmpty()) {
+                val soma = num1.toDouble() + num2.toDouble()
+                resultado.text = "Resultado: $soma"
+            } else {
+                resultado.text = "Por favor, insira os dois números."
+            }
+        }
+        botaoSubtrair.setOnClickListener {
+            val num1 = numero1.text.toString()
+            val num2 = numero2.text.toString()
+            if (num1.isNotEmpty() && num2.isNotEmpty()) {
+                val subtracao = num1.toDouble() - num2.toDouble()
+                resultado.text = "Resultado: $subtracao"
+            } else {
+                resultado.text = "Por favor, insira os dois números."
+            }
+        }
+    }
+}
+
+XML 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/editTextNumero1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o primeiro número"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/editTextNumero2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o segundo número"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoSomar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Somar"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoSubtrair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtrair"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
+
