@@ -1,0 +1,84 @@
+package br.unipar.conversortemperatura
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val temperaturaInput = findViewById<EditText>(R.id.editTextTemperatura)
+        val celsiusParaFahrenheit = findViewById<RadioButton>(R.id.radioButtonCelsiusParaFahrenheit)
+        val fahrenheitParaCelsius = findViewById<RadioButton>(R.id.radioButtonFahrenheitParaCelsius)
+        val botaoConverter = findViewById<Button>(R.id.botaoConverter)
+        val resultado = findViewById<TextView>(R.id.textViewResultado)
+
+        botaoConverter.setOnClickListener {
+            val temperatura = temperaturaInput.text.toString()
+
+            if (temperatura.isNotEmpty()) {
+                val temperaturaDouble = temperatura.toDouble()
+                val resultadoConversao = if (celsiusParaFahrenheit.isChecked) {
+                    (temperaturaDouble * 9/5) + 32
+                } else {
+                    (temperaturaDouble - 32) * 5/9
+                }
+                resultado.text = "Resultado: %.2f".format(resultadoConversao)
+            } else {
+                resultado.text = "Por favor, insira uma temperatura."
+            }
+        }
+    }
+}
+XML
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/editTextTemperatura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite a temperatura"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <RadioButton
+        android:id="@+id/radioButtonCelsiusParaFahrenheit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Celsius para Fahrenheit"
+        android:checked="true" />
+
+    <RadioButton
+        android:id="@+id/radioButtonFahrenheitParaCelsius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fahrenheit para Celsius"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoConverter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Converter"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
