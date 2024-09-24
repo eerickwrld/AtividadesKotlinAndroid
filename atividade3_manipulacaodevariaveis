@@ -1,0 +1,33 @@
+import java.text.DecimalFormat
+
+fun main() {
+    val nomeProduto: String = "Notebook"
+    val precoUnitario: Double = 2500.00
+    val quantidadeComprada: Int = 5
+    val taxaImposto: Double = 0.15  // 15% de imposto
+    val margemLucro: Double = 0.20  // 20% de margem de lucro
+
+    val valorTotalSemImpostos: Double = precoUnitario * quantidadeComprada
+
+    val valorImposto: Double = valorTotalSemImpostos * taxaImposto
+    val valorTotalComImpostos: Double = valorTotalSemImpostos + valorImposto
+
+    val precoVenda: Double = valorTotalComImpostos * (1 + margemLucro)
+
+    val formatoMoeda = DecimalFormat("R$ #,##0.00")
+
+    val valorTotalComImpostosFormatado: String = formatoMoeda.format(valorTotalComImpostos)
+    val precoVendaFormatado: String = formatoMoeda.format(precoVenda)
+
+    val mensagemFinal: String = "O produto $nomeProduto tem um valor total com impostos de $valorTotalComImpostosFormatado " +
+            "e o preço de venda sugerido é $precoVendaFormatado."
+
+    println("Nome do produto: $nomeProduto")
+    println("Preço unitário: R$ $precoUnitario")
+    println("Quantidade comprada: $quantidadeComprada")
+    println("Valor total sem impostos: R$ ${formatoMoeda.format(valorTotalSemImpostos)}")
+    println("Valor do imposto: R$ ${formatoMoeda.format(valorImposto)}")
+    println("Valor total com impostos: $valorTotalComImpostosFormatado")
+    println("Preço de venda sugerido: $precoVendaFormatado")
+    println(mensagemFinal)
+}
