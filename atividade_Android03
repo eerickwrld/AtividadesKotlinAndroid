@@ -1,0 +1,62 @@
+package br.unipar.verificadorsenha
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val senhaFixa = "1234"
+        val inputSenha = findViewById<EditText>(R.id.editTextSenha)
+        val resultado = findViewById<TextView>(R.id.textViewResultado)
+        val botaoVerificar = findViewById<Button>(R.id.botaoVerificar)
+
+        botaoVerificar.setOnClickListener {
+            val senhaInserida = inputSenha.text.toString()
+
+            if (senhaInserida == senhaFixa) {
+                resultado.text = "Senha correta"
+            } else {
+                resultado.text = "Senha incorreta"
+            }
+        }
+    }
+}
+XML
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/editTextSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite sua senha"
+        android:inputType="textPassword"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoVerificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verificar Senha"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
