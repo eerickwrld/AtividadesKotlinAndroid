@@ -1,0 +1,92 @@
+package br.unipar.churraspar
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val inputHomens = findViewById<EditText>(R.id.editTextHomens)
+        val inputMulheres = findViewById<EditText>(R.id.editTextMulheres)
+        val inputCriancas = findViewById<EditText>(R.id.editTextCriancas)
+        val resultado = findViewById<TextView>(R.id.textViewResultado)
+        val botaoCalcular = findViewById<Button>(R.id.botaoCalcular)
+
+        botaoCalcular.setOnClickListener {
+            val homens = inputHomens.text.toString().toIntOrNull() ?: 0
+            val mulheres = inputMulheres.text.toString().toIntOrNull() ?: 0
+            val criancas = inputCriancas.text.toString().toIntOrNull() ?: 0
+
+            val carneHomens = homens * 400
+            val carneMulheres = mulheres * 300
+            val carneCriancas = criancas * 200
+            val totalCarne = carneHomens + carneMulheres + carneCriancas
+
+            val bebidasAlcoolicas = (homens * 500) + (mulheres * 300)
+            val bebidasNaoAlcoolicas = (homens * 300) + (mulheres * 400) + (criancas * 200)
+
+            val aperitivos = (homens + mulheres + criancas) * 200
+
+            val resultadoTexto = """
+                Carne: ${totalCarne / 1000.0} kg
+                Bebidas Alcoólicas: ${bebidasAlcoolicas / 1000.0} litros
+                Bebidas Não Alcoólicas: ${bebidasNaoAlcoolicas / 1000.0} litros
+                Aperitivos: ${aperitivos / 1000.0} kg
+            """.trimIndent()
+
+            resultado.text = resultadoTexto
+        }
+    }
+}
+xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextHomens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número de homens"
+        android:inputType="number"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/editTextMulheres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número de mulheres"
+        android:inputType="number"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/editTextCriancas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número de crianças"
+        android:inputType="number"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoCalcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calcular"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resultado aparecerá aqui"
+        android:textSize="16sp" />
+
+</LinearLayout>
