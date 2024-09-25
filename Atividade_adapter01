@@ -1,0 +1,111 @@
+package br.unipar.formularioalunos
+
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.*
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var adapter: ArrayAdapter<String>
+    private val alunos = mutableListOf<String>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val nomeAlunoInput = findViewById<EditText>(R.id.editTextNomeAluno)
+        val areaEscolhaInput = findViewById<EditText>(R.id.editTextAreaEscolha)
+        val listaAlunos = findViewById<ListView>(R.id.listViewAlunos)
+        val botaoAdicionar = findViewById<Button>(R.id.botaoAdicionar)
+        val botaoZerar = findViewById<Button>(R.id.botaoZerar)
+        val contadorAlunos = findViewById<TextView>(R.id.textViewContador)
+        val dataAtual = findViewById<TextView>(R.id.textViewData)
+
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, alunos)
+        listaAlunos.adapter = adapter
+
+        val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        dataAtual.text = "Data Atual: $dataFormatada"
+
+        botaoAdicionar.setOnClickListener {
+            val nome = nomeAlunoInput.text.toString()
+            val area = areaEscolhaInput.text.toString()
+
+            if (nome.isNotEmpty() && area.isNotEmpty()) {
+                alunos.add("$nome - Área: $area")
+                adapter.notifyDataSetChanged()
+                nomeAlunoInput.text.clear()
+                areaEscolhaInput.text.clear()
+
+                contadorAlunos.text = "Total de Alunos: ${alunos.size}"
+            } else {
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        botaoZerar.setOnClickListener {
+            alunos.clear()
+            adapter.notifyDataSetChanged()
+            contadorAlunos.text = "Total de Alunos: 0"
+        }
+    }
+}
+xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data Atual:"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/editTextNomeAluno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nome do Aluno"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/editTextAreaEscolha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Área de Escolha"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/botaoAdicionar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adicionar"
+        android:layout_marginBottom="16dp" />
+
+    <ListView
+        android:id="@+id/listViewAlunos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewContador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total de Alunos: 0"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/botaoZerar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zerar" />
+
+</LinearLayout>
